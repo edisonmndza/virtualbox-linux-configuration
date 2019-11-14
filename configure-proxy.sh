@@ -9,6 +9,9 @@ grep -q 'https_proxy=.*' /etc/environment && sed -i -E "s/https_proxy=.*/https_p
 grep -q 'ftp_proxy=.*' /etc/environment && sed -i -E "s/ftp_proxy=.*/ftp_proxy=\"http:\/\/$USER:$PASS@stcweb.statcan.ca\/\"/g" /etc/environment || echo "ftp_proxy=\"http://$USER:$PASS@stcweb.statcan.ca/\"" >> /etc/environment
 grep -q 'no_proxy=.*' /etc/environment && sed -i -E "s/no_proxy=.*/no_proxy=\"127.0.0.1,::1,.cloud.statcan.ca,.k8s.cloud.statcan.ca,172.16.0.0\/12\"/g" /etc/environment || echo "no_proxy=\"127.0.0.1,localhost,::1,.cloud.statcan.ca,.k8s.cloud.statcan.ca,172.16.0.0/12/\"" >> /etc/environment
 
+#reload environment variables for the current terminal session
+while read -r env; do export "$env"; done
+
 #run apt update and upgrade
 apt-get update 
 apt-get upgrade -y
