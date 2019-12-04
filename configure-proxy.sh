@@ -28,5 +28,5 @@ systemctl start squid.service && systemctl enable squid.service
 
 # #add following lines to squid.conf 
 grep -q "http_access allow all" /etc/squid/squid.conf || echo "http_access allow all" >> /etc/squid/squid.conf
-grep -q "cache_peer stc*" /etc/squid/squid.conf || echo "cache_peer stcweb.statcan.ca parent 80 0 no-query default login=USERNAME:PASSWORD" >> /etc/squid/squid.conf
+grep -q "cache_peer stc*" /etc/squid/squid.conf || echo "cache_peer stcweb.statcan.ca parent 80 0 no-query default login=$USER:$PASS" >> /etc/squid/squid.conf
 grep -q "^never_direct allow all" /etc/squid/squid.conf || echo "never_direct allow all" >> /etc/squid/squid.conf
